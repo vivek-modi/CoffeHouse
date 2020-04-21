@@ -1,4 +1,5 @@
 package com.vivek.main;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -29,7 +30,6 @@ import com.vivek.delivery.InstantCoffee;
 import com.vivek.type.Cappuccino;
 import com.vivek.type.Espresso;
 import com.vivek.type.Mochaccino;
-
 
 public class MainFrame {
 
@@ -170,10 +170,10 @@ public class MainFrame {
 		switch (comboBox_1.getSelectedIndex()) {
 
 		case 0:
-			coffee = new FilterCoffee(coffee);
+			coffee = new InstantCoffee(coffee);
 			break;
 		case 1:
-			coffee = new InstantCoffee(coffee);
+			coffee = new FilterCoffee(coffee);
 			break;
 		default:
 			coffee = new InstantCoffee(coffee);
@@ -190,6 +190,7 @@ public class MainFrame {
 					break;
 				case "Caramel":
 					coffee = new Caramel(coffee);
+					break;
 				case "Cream":
 					coffee = new Cream(coffee);
 					break;
