@@ -1,7 +1,5 @@
 package com.vivek.decorator;
 
-import com.vivek.interfaceclass.CoffeeInterface;
-
 public abstract class Coffee implements CoffeeInterface {
 
 	protected String description;

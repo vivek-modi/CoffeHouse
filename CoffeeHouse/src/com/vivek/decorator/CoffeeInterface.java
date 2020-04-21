@@ -1,4 +1,4 @@
-package com.vivek.interfaceclass;
+package com.vivek.decorator;
 
 public interface CoffeeInterface {
 	public String getDescription();
