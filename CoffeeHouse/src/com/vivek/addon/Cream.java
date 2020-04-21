@@ -15,6 +15,6 @@ public class Cream extends Decorator {
 
 	@Override
 	public String getDescription() {
-		return super.getDescription() + "\nExtra: Cream";
+		return coffee.getDescription() + "\nExtra: Cream";
 	}
 }
