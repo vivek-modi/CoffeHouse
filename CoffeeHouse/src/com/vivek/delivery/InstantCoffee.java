@@ -11,7 +11,7 @@ public class InstantCoffee extends Decorator {
 
 	@Override
 	public String getDescription() {
-		return coffee.getDescription() + "\nPurchase: Filter";
+		return coffee.getDescription() + "\nPurchase: Instant";
 	}
 
 	@Override
