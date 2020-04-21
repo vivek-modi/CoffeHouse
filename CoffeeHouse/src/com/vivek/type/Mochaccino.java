@@ -1,3 +1,5 @@
+package com.vivek.type;
+import com.vivek.decorator.Coffee;
 
 public class Mochaccino extends Coffee {
 
@@ -8,5 +10,10 @@ public class Mochaccino extends Coffee {
 	@Override
 	public double cost() {
 		return 30;
+	}
+
+	@Override
+	public String getDescription() {
+		return super.getDescription();
 	}
 }

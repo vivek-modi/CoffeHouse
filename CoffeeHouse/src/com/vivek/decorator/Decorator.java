@@ -1,3 +1,4 @@
+package com.vivek.decorator;
 
 public abstract class Decorator extends Coffee {
 

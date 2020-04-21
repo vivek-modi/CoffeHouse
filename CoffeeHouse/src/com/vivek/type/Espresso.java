@@ -1,3 +1,5 @@
+package com.vivek.type;
+import com.vivek.decorator.Coffee;
 
 public class Espresso extends Coffee {
 
@@ -10,4 +12,8 @@ public class Espresso extends Coffee {
 		return 11;
 	}
 
+	@Override
+	public String getDescription() {
+		return super.getDescription() ;
+	}
 }

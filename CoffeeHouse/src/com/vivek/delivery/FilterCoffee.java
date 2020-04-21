@@ -1,3 +1,8 @@
+package com.vivek.delivery;
+
+import com.vivek.decorator.Coffee;
+import com.vivek.decorator.Decorator;
+
 public class FilterCoffee extends Decorator {
 
 	public FilterCoffee(Coffee c) {
@@ -11,6 +16,6 @@ public class FilterCoffee extends Decorator {
 
 	@Override
 	public String getDescription() {
-		return coffee.description;
+		return coffee.getDescription() + "\nPurchase: Filter";
 	}
 }
