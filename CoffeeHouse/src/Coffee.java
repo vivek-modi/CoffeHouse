@@ -1,15 +1,17 @@
 
-public abstract class Coffee {
+public abstract class Coffee implements CoffeeInterface {
 
-	private String description;
+	protected String description;
 
 	public Coffee(String description) {
 		this.description = description;
 	}
 
+	@Override
 	public String getDescription() {
 		return description;
 	}
 
+	@Override
 	public abstract double cost();
 }
