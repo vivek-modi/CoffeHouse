@@ -1,9 +1,11 @@
 
 public abstract class Decorator extends Coffee {
 
-	 public Decorator(String description) {
-		super(description);
+	protected Coffee coffee;
+
+	public Decorator(Coffee coffee) {
+		super(coffee.description);
+		this.coffee = coffee;
 	}
 
-	public abstract String getDescription();  
 }
