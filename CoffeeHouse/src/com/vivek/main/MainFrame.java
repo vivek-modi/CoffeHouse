@@ -18,8 +18,10 @@ import javax.swing.JCheckBox;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import com.vivek.addon.Caramel;
 import com.vivek.addon.Cream;
@@ -30,6 +32,10 @@ import com.vivek.delivery.InstantCoffee;
 import com.vivek.type.Cappuccino;
 import com.vivek.type.Espresso;
 import com.vivek.type.Mochaccino;
+import com.vivek.utils.CoffeeData;
+
+import javafx.scene.chart.PieChart.Data;
+import javax.swing.JTextArea;
 
 public class MainFrame {
 
@@ -40,7 +46,9 @@ public class MainFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox_1;
 	private JPanel panel;
-	private boolean panelopen = false;;
+	private boolean panelopen = false;
+	private boolean billpanel = false;
+	private Stack<CoffeeData> stack;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -62,10 +70,12 @@ public class MainFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 367);
+		frame.setBounds(100, 100, 440, 367);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
+
+		stack = new Stack<CoffeeData>();
 
 		JLabel lblNewLabel = new JLabel("Coffee House");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -118,18 +128,56 @@ public class MainFrame {
 		chckbxCream.setBounds(23, 93, 97, 33);
 		panel.add(chckbxCream);
 
-		JButton btnNewButton = new JButton("Order");
+		CoffeeData data = new CoffeeData();
+		JButton btnNewButton = new JButton("Add Item");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				OrderCoffee();
 			}
 		});
-		btnNewButton.setBounds(93, 276, 89, 23);
+		btnNewButton.setBounds(39, 276, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 
+		comboBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chckbxNewCheckBox.setSelected(false);
+				chckbxCream.setSelected(false);
+				chckbxCaramel.setSelected(false);
+			}
+		});
+
+		comboBox_1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chckbxNewCheckBox.setSelected(false);
+				chckbxCream.setSelected(false);
+				chckbxCaramel.setSelected(false);
+			}
+		});
+
 		JButton btnAddOn = new JButton("Extra");
+
+		btnAddOn.setBounds(174, 276, 89, 23);
+		frame.getContentPane().add(btnAddOn);
+
+		JButton btnAddOn_1 = new JButton("Bill");
+		btnAddOn_1.setBounds(300, 276, 89, 23);
+		frame.getContentPane().add(btnAddOn_1);
+
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(48, 340, 341, 245);
+		frame.getContentPane().add(textArea);
+
+		JScrollPane scroll = new JScrollPane(textArea);
+		scroll.setBounds(48, 340, 341, 245);
+		frame.getContentPane().add(scroll);
+
 		btnAddOn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				btnAddOn_1.setText("Bill");
 				if (panelopen) {
 					panelopen = false;
 					btnAddOn.setText("Extra");
@@ -144,8 +192,43 @@ public class MainFrame {
 
 			}
 		});
-		btnAddOn.setBounds(211, 276, 89, 23);
-		frame.getContentPane().add(btnAddOn);
+
+		btnAddOn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				btnAddOn.setText("Extra");
+				int sum = 0;
+				if (billpanel) {
+					billpanel = false;
+					btnAddOn_1.setText("Bill");
+					frame.setBounds(100, 100, 450, 367);
+					frame.setLocationRelativeTo(null);
+				} else {
+					billpanel = true;
+					btnAddOn_1.setText("Off Bill");
+					frame.setBounds(100, 100, 450, 646);
+					frame.setLocationRelativeTo(null);
+				}
+
+				textArea.setText("");
+				textArea.setText(
+						"-----------------------------------------Bill-----------------------------------------");
+
+				for (CoffeeData coffeeData : stack) {
+					textArea.append("\n\n" + coffeeData.getExtras() + " "
+							+ "                                                                    "
+							+ coffeeData.getCost());
+
+					sum += coffeeData.getCost();
+
+				}
+				textArea.append(
+						"\n\n----------------------------------------Total----------------------------------------");
+				textArea.append(
+						"\nTotal                                                                                          "
+								+ sum);
+			}
+		});
 
 	}
 
@@ -198,8 +281,7 @@ public class MainFrame {
 			}
 		}
 
-		System.out.println("" + coffee.getDescription());
-		System.out.println("" + coffee.cost());
+		stack.push(new CoffeeData(coffee.getDescription(), coffee.cost()));
 
 	}
 
